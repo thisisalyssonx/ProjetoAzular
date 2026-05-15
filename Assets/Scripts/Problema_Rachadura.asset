@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0958fbfcd634b8f4e964b2f994696de3, type: 3}
   m_Name: Problema_Rachadura
   m_EditorClassIdentifier: Assembly-CSharp::ProblemData
-  nomeProblem: 
-  texturaParede: {fileID: 0}
+  nomeProblem: Rachadura
+  texturaParede: {fileID: 2800000, guid: fa34564e5ed904a40b305caf26d4a682, type: 3}
   descricaoDiario: 
   nomeFerramentaDica: 
-  ferramentaCorreta: 0
+  ferramentaCorreta: 3
   mensagemAcerto: Correto! Problema resolvido.
   mensagemErro: Ferramenta incorreta. Tente outra.

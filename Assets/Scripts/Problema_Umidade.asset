@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0958fbfcd634b8f4e964b2f994696de3, type: 3}
   m_Name: Problema_Umidade
   m_EditorClassIdentifier: Assembly-CSharp::ProblemData
-  nomeProblem: 
-  texturaParede: {fileID: 0}
+  nomeProblem: Umidade
+  texturaParede: {fileID: 2800000, guid: 94baa1e64f80cb44a85f75279de4ef86, type: 3}
   descricaoDiario: 
   nomeFerramentaDica: 
   ferramentaCorreta: 0

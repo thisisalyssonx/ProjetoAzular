@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0958fbfcd634b8f4e964b2f994696de3, type: 3}
   m_Name: Problema_Mofo
   m_EditorClassIdentifier: Assembly-CSharp::ProblemData
-  nomeProblem: 
-  texturaParede: {fileID: 0}
+  nomeProblem: Mofo
+  texturaParede: {fileID: 2800000, guid: d1d051edd86b8ec4d925437b7c8fd04e, type: 3}
   descricaoDiario: 
   nomeFerramentaDica: 
   ferramentaCorreta: 0
