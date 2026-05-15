@@ -1,15 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// ScriptableObject que define um problema de conservação patrimonial.
-/// Crie instâncias pelo menu: Assets > Create > Jogo > Problema
-///
-/// Problemas padrão do GDD:
-///   Problema_Umidade    → Higrometro
-///   Problema_Mofo       → Higrometro
-///   Problema_Cupim      → Lupa ou CameraInspecao
-///   Problema_Rachadura  → Lupa ou Espatula
-/// </summary>
 [CreateAssetMenu(menuName = "Jogo/Problema", fileName = "Novo Problema")]
 public class ProblemData : ScriptableObject
 {

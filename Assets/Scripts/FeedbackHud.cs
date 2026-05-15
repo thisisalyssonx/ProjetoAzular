@@ -2,16 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 
-/// <summary>
-/// Exibe feedback visual de acerto (✓ verde) e erro (✕ vermelho).
-/// Canvas_Feedback deve usar Render Mode: Screen Space - Overlay.
-///
-/// Estrutura esperada:
-///   Canvas_Feedback (Screen Space Overlay)
-///     └── FeedbackHUD (este script)
-///         ├── IconErro   (GameObject com CanvasGroup — ✕ vermelho)
-///         └── IconAcerto (GameObject com CanvasGroup — ✓ verde)
-/// </summary>
 public class FeedbackHUD : MonoBehaviour
 {
     [Header("Ícones de Feedback")]
@@ -76,7 +66,7 @@ public class FeedbackHUD : MonoBehaviour
 
     private void OcultarTodos()
     {
-        if (iconErro   != null) iconErro.gameObject.SetActive(false);
+        if (iconErro != null) iconErro.gameObject.SetActive(false);
         if (iconAcerto != null) iconAcerto.gameObject.SetActive(false);
     }
 

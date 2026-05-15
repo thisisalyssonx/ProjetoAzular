@@ -2,17 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Controla o Diário de Campo: abre/fecha com botão B (mão direita)
-/// ou Y (mão esquerda) no Meta Quest, e exibe o conteúdo do problema atual.
-///
-/// Coloque este script em um GameObject vazio filho do HUD_Root.
-///
-/// No InputActionReference, arraste a action:
-///   XRI RightHand / Secondary Button  (botão B)
-///   ou
-///   XRI LeftHand / Secondary Button   (botão Y)
-/// </summary>
 public class DiarioController : MonoBehaviour
 {
     [Header("Canvas do Diário")]
@@ -52,7 +41,7 @@ public class DiarioController : MonoBehaviour
     /// </summary>
     public void AtualizarConteudo(string descricao, string ferramenta)
     {
-        if (textoDescricao  != null) textoDescricao.text  = descricao;
+        if (textoDescricao != null) textoDescricao.text = descricao;
         if (textoFerramenta != null) textoFerramenta.text = ferramenta;
     }
 

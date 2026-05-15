@@ -1,88 +1,62 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.UI;
 
 /// <summary>
-/// Exibe feedback visual de acerto (✓ verde) e erro (✕ vermelho).
-/// Canvas_Feedback deve usar Render Mode: Screen Space - Overlay.
+/// Barra de progresso visual composta por marcadores individuais.
+/// Um marcador por problema — fica verde ao acertar.
 ///
-/// Estrutura esperada:
-///   Canvas_Feedback (Screen Space Overlay)
-///     └── FeedbackHUD (este script)
-///         ├── IconErro   (GameObject com CanvasGroup — ✕ vermelho)
-///         └── IconAcerto (GameObject com CanvasGroup — ✓ verde)
+/// Coloque este script no Panel_ProgressBar dentro de Canvas_ProblemaCentral.
+/// Crie um prefab simples de marcador: Image 36x6px, cor branca, sprite redondo.
 /// </summary>
-public class FeedbackHUD : MonoBehaviour
+public class ProgressBarHUD : MonoBehaviour
 {
-    [Header("Ícones de Feedback")]
-    public CanvasGroup iconErro;
-    public CanvasGroup iconAcerto;
+    [Header("Prefab e Container")]
+    [Tooltip("Prefab de uma barrinha/bolinha de progresso (Image simples)")]
+    public GameObject marcadorPrefab;
 
-    [Header("Tempo")]
-    [Tooltip("Duração total do feedback em tela (segundos)")]
-    public float duracao = 1.2f;
+    [Tooltip("Transform pai onde os marcadores são instanciados (Horizontal Layout Group)")]
+    public Transform container;
 
-    [Header("Háptico (opcional)")]
-    [Tooltip("Amplitude da vibração ao errar (0 = desativado)")]
-    [Range(0f, 1f)]
-    public float hapticAmplitude = 0.5f;
+    [Header("Cores")]
+    public Color corAtiva = new Color(0.52f, 0.94f, 0.67f); // verde claro #86EFAC
+    public Color corInativa = new Color(1f, 1f, 1f, 0.2f);    // branco transparente
 
-    [Tooltip("Duração da vibração em segundos")]
-    public float hapticDuration = 0.3f;
+    private Image[] _marcadores;
 
-    // ── API pública ───────────────────────────────────────────────────────────
-
-    public void MostrarErro()
+    /// <summary>
+    /// Inicializa a barra criando 'total' marcadores. Chame no Start do GameManager.
+    /// </summary>
+    public void Inicializar(int total)
     {
-        StopAllCoroutines();
-        StartCoroutine(FadeIn(iconErro));
+        // Limpa marcadores antigos (caso reinicie)
+        foreach (Transform filho in container)
+            Destroy(filho.gameObject);
 
-        if (hapticAmplitude > 0f)
-            VibrarControle();
-    }
+        _marcadores = new Image[total];
 
-    public void MostrarAcerto()
-    {
-        StopAllCoroutines();
-        StartCoroutine(FadeIn(iconAcerto));
-    }
-
-    // ── Privados ──────────────────────────────────────────────────────────────
-
-    private IEnumerator FadeIn(CanvasGroup grupo)
-    {
-        // Garante que outros ícones estejam ocultos
-        OcultarTodos();
-
-        grupo.gameObject.SetActive(true);
-        grupo.alpha = 1f;
-
-        // Mantém visível por 60% da duração
-        yield return new WaitForSeconds(duracao * 0.6f);
-
-        // Fade out nos 40% restantes
-        float t = 0f;
-        float fadeDuration = duracao * 0.4f;
-
-        while (t < fadeDuration)
+        for (int i = 0; i < total; i++)
         {
-            t += Time.deltaTime;
-            grupo.alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
-            yield return null;
+            var obj = Instantiate(marcadorPrefab, container);
+            _marcadores[i] = obj.GetComponent<Image>();
+
+            if (_marcadores[i] == null)
+            {
+                Debug.LogError("[ProgressBarHUD] Prefab do marcador não tem componente Image!");
+                return;
+            }
+
+            _marcadores[i].color = corInativa;
         }
-
-        grupo.gameObject.SetActive(false);
     }
 
-    private void OcultarTodos()
+    /// <summary>
+    /// Atualiza cores: marcadores até 'acertos' ficam verdes, o restante fica inativo.
+    /// </summary>
+    public void Atualizar(int acertos)
     {
-        if (iconErro   != null) iconErro.gameObject.SetActive(false);
-        if (iconAcerto != null) iconAcerto.gameObject.SetActive(false);
-    }
+        if (_marcadores == null) return;
 
-    private void VibrarControle()
-    {
-        var device = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        device.SendHapticImpulse(0, hapticAmplitude, hapticDuration);
+        for (int i = 0; i < _marcadores.Length; i++)
+            _marcadores[i].color = i < acertos ? corAtiva : corInativa;
     }
 }

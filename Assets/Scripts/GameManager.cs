@@ -1,17 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-
-/// <summary>
-/// Cérebro do jogo. Controla:
-///   - Sequência de problemas
-///   - Verificação de ferramentas
-///   - Atualização de toda a HUD
-///   - Ativação da tela final
-///
-/// Coloque em um GameObject vazio "GameManager" na raiz da cena.
-/// Preencha TODOS os campos no Inspector antes de testar.
-/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -50,9 +39,9 @@ public class GameManager : MonoBehaviour
 
     // ── Estado interno ────────────────────────────────────────────────────────
 
-    private int _indiceAtual    = 0;
-    private int _acertos        = 0;
-    private int _tentativas     = 0;
+    private int _indiceAtual = 0;
+    private int _acertos = 0;
+    private int _tentativas = 0;
     private bool _jogoEncerrado = false;
 
     // ── Unity lifecycle ───────────────────────────────────────────────────────
@@ -130,11 +119,11 @@ public class GameManager : MonoBehaviour
 
     private void AtualizarHUD()
     {
-        int total   = problemas.Length;
+        int total = problemas.Length;
         int exibido = Mathf.Min(_indiceAtual + 1, total);
 
-        if (textContador   != null) textContador.text   = $"{exibido} / {total}";
-        if (textAcertos    != null) textAcertos.text    = _acertos.ToString();
+        if (textContador != null) textContador.text = $"{exibido} / {total}";
+        if (textAcertos != null) textAcertos.text = _acertos.ToString();
         if (textTentativas != null) textTentativas.text = _tentativas.ToString();
 
         progressBar?.Atualizar(_acertos);
@@ -148,7 +137,7 @@ public class GameManager : MonoBehaviour
 
         if (canvasChef != null) canvasChef.SetActive(true);
 
-        int total      = problemas.Length;
+        int total = problemas.Length;
         int eficiencia = _tentativas > 0
             ? Mathf.RoundToInt((float)_acertos / _tentativas * 100)
             : 100;
